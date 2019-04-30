@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to the Production Management System</h1>
+<p>Please chose one of the following tasks:</p>
+<p><a href="{% url 'start production' %}">Start a Production Run</a></p>
+<p><a href="{% url 'active production' %}">View Active Production Runs</a></p>
+{% endblock %}
