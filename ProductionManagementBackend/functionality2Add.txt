@@ -1,0 +1,16 @@
+1 Form that allows Laser Dept to create a Production Run
+    a. Must include a barcode that will be scanned by Assembly Crew
+    b. Should open into a PDF file that Laser Dept will print
+
+2 Production Run Controls
+    a. Allows Starting, Completing and Stopping Production Tasks
+    b. Provide for Quality Control Reporting for damaged, broken, etc. parts
+
+3.Data Analysis on Production Runs
+    a. Speed
+    b. Quality
+    c. Waste
+
+4. Raw Material Management
+    a. Tracks quantities on hand
+    b. Creates Alerts for low levels
