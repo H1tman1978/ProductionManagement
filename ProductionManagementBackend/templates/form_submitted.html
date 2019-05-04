@@ -1,0 +1,14 @@
+<!-- templates/start_production_job.html -->
+{% extends 'base.html' %}
+
+{% block title %}Title of Web Page{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Job Created Successfully</h2>
+    <!--  The rest of the body code goes here  -->
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}

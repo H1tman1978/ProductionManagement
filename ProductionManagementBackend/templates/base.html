@@ -1,14 +1,31 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
+{% load static %}
+{% load admin_urls %}
 <html>
 <head>
     <meta charset="utf-8">
     <title>{% block title %}PM Quilting's Intranet{% endblock %}</title>
 
+    <!-- TODO: Favicon Info/Settings   -->
+
 </head>
 <body>
     <nav>
-        <button value="Start Production"
+        {% if user.is_authenticated %}
+            <!--TODO: Enter Nav Bar code for Logged in Users -->
+            <p> Hi, {{ user.username }}!
+            <a href="{% url 'all jobs' %}"><button>View All Jobs</button></a>
+            <a href="{% url 'active jobs' %}"><button>View Active Jobs</button></a>
+            <a href="{% url 'my jobs' %}"><button>My Jobs</button></a>
+            <a href="{% url 'laser jobs' %}"><button>Laser Jobs</button></a>
+            <a href="{% url 'admin:index' %}", target="_blank", rel="noopener noreferrer"><button>Admin</button></a>
+            <a href="{% url 'logout' %}"><button>Logout</button></a></p>
+        {% else %}
+            <p>You are not logged in!
+            <a href="{% url 'login' %}"><button>Login</button> </a></p>
+        {% endif %}
+
     </nav>
     <main>
         {% block content %}

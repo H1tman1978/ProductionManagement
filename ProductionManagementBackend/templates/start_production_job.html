@@ -1,0 +1,28 @@
+<!-- templates/start_production_job.html -->
+{% extends 'base.html' %}
+
+{% block title %}Start a Production Job{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Start New Production Job</h2>
+    <form id="create_production_run_form" method="post" action="form_submitted/">
+
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Create Production Job" />
+        </form>
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
