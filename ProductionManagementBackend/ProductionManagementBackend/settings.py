@@ -25,7 +25,7 @@ SECRET_KEY = 'lna*98g4ffy!n2@9)_!zo^i+mlzo!l=#_fu_2gs-co1+m_pxrg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.28', '127.0.0.1', '192.168.1.122']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'LaserProductionTracker',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
 
 LOGIN_REDIRECT_URL = '/production_tracker/'
 LOGOUT_REDIRECT_URL = '/'

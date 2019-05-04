@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Open Laser Jobs{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Open Laser Jobs</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Job #</th>
+            <th>Product to Make</th>
+            <th>Quantity to Make</th>
+        </tr>
+    {% for job in laser_jobs %}
+        <tr>
+            <td><button>Claim Job</button></td>
+            <td>{{ job.production_run_number }}</td>
+            <td>{{ job.product_made }}</td>
+            <td>{{ job.quantity_to_produce }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}"><button>Login</button></a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+<!-- this file is a model to copy and past to create other templates as needed -->
+{% extends 'base.html' %}
+
+{% block title %}Title of Web Page{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Body Header</h2>
+    <!--  The rest of the body code goes here  -->
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}

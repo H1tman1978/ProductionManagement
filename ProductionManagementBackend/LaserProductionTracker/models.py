@@ -13,6 +13,9 @@ class LaserMachine(models.Model):
     value = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     hourly_depreciation_rate = models.FloatField(max_length=10, default=-0.21)
 
+    def __unicode__(self):
+        return self.name
+
     def add_hours(self, number):
         self.current_hours_used += number
 
@@ -21,32 +24,33 @@ class LaserMachine(models.Model):
 
 
 class LaserProductionRun(models.Model):
-    machine_used = models.ForeignKey('LaserMachine', on_delete=models.CASCADE, name='Machine')
-    product_made = models.ForeignKey('Product', on_delete=models.CASCADE, name='Product')
     production_run_number = models.AutoField(primary_key=True)
+    machine_used = models.ForeignKey('LaserMachine', on_delete=models.CASCADE)
+    product_made = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity_to_produce = models.IntegerField()
-    laser_time_started = models.DateTimeField()
-    laser_product_waste = models.IntegerField(default=0)
-    laser_time_finished = models.DateTimeField()
-    assembly_time_started = models.DateTimeField()
-    assembly_product_waste = models.IntegerField(default=0)
-    assembly_time_finished = models.DateTimeField()
-    packaging_time_started = models.DateTimeField()
-    packaging_product_waste = models.IntegerField(default=0)
-    packaging_time_finished = models.DateTimeField()
-    shrink_time_started = models.DateTimeField()
-    shrink_bags_wasted = models.IntegerField(default=0)
-    shrink_time_finished = models.DateTimeField()
+    laser_time_started = models.DateTimeField(blank=True, null=True)
+    laser_product_waste = models.IntegerField(default=0, null=True)
+    laser_time_finished = models.DateTimeField(blank=True, null=True)
+    assembly_time_started = models.DateTimeField(blank=True, null=True)
+    assembly_product_waste = models.IntegerField(default=0, null=True)
+    assembly_time_finished = models.DateTimeField(blank=True, null=True)
+    packaging_time_started = models.DateTimeField(blank=True, null=True)
+    packaging_product_waste = models.IntegerField(default=0, null=True)
+    packaging_time_finished = models.DateTimeField(blank=True, null=True)
+    shrink_time_started = models.DateTimeField(blank=True, null=True)
+    shrink_bags_wasted = models.IntegerField(default=0, null=True)
+    shrink_time_finished = models.DateTimeField(blank=True, null=True)
     production_finished = models.BooleanField(default=False)
-    total_quantity_produced = models.IntegerField(default=0)
+    total_quantity_produced = models.IntegerField(default=0, null=True)
     laser_job_is_claimed = models.BooleanField(default=False)
     assembly_job_is_claimed = models.BooleanField(default=False)
     packaging_job_is_claimed = models.BooleanField(default=False)
     shrink_job_is_claimed = models.BooleanField(default=False)
-    laser_worker = models.CharField(max_length=100)
-    assembly_worker = models.CharField(max_length=100)
-    packaging_worker = models.CharField(max_length=100)
-    shrinking_worker = models.CharField(max_length=100)
+    laser_worker = models.CharField(max_length=100, blank=True, null=True)
+    assembly_worker = models.CharField(max_length=100, blank=True, null=True)
+    packaging_worker = models.CharField(max_length=100, blank=True, null=True)
+    shrinking_worker = models.CharField(max_length=100, blank=True, null=True)
+    objects = models.Manager()
 
     # Laser Production Functions
     def start_laser(self):
@@ -131,6 +135,23 @@ class Product(models.Model):
         ('20', '20" Bag'),
         ('26', '26" Bag'),
     )
-    bag_size = models.IntegerField(choices=BAG_SIZE_CHOICES, default=2)
+    bag_size = models.CharField(choices=BAG_SIZE_CHOICES, default='2', max_length=2)
     bag_length = models.FloatField(max_length=5, default=0.0)
     product_notes = models.TextField(max_length=5000, default="No notes at this time...")
+    objects = models.Manager()
+
+    def __unicode__(self):
+        return self.sku
+
+
+def active_jobs():
+    query_set = LaserProductionRun.objects.all().filter(production_finished=False)
+    return query_set
+
+
+def all_jobs():
+    query_set = LaserProductionRun.objects.all()
+    return query_set
+
+
+

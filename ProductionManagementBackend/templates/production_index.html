@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}PMQnet - Production Tracker{% endblock %}
 
 {% block content %}
-<h1>Welcome to the Production Management System</h1>
-<p>Please chose one of the following tasks:</p>
-<p><a href="{% url 'start production' %}">Start a Production Run</a></p>
-<p><a href="{% url 'active production' %}">View Active Production Runs</a></p>
+    <h1>Welcome to the Production Management System</h1>
+    <p>Please chose one of the following tasks:</p>
+    <p><a href="{% url 'all jobs' %}"><button>View All Production Runs</button></a></p>
+    <p><a href="{% url 'active jobs' %}"><button>Active Production Runs</button></a></p>
+    <p><a href="{% url 'laser jobs' %}"><button>View Laser Jobs</button></a></p>
+    <p><a href="{% url 'assembly jobs' %}"><button>View Assembly Jobs</button></a></p>
+    <p><a href="{% url 'packaging jobs' %}"><button>View Packaging Jobs</button></a></p>
+    <p><a href="{% url 'shrinking jobs' %}"><button>View Shrinking Jobs</button></a></p>
+    <p><a href="{% url 'my jobs' %}"><button>View My Jobs</button></a></p>
 {% endblock %}
+
+<!-- path('', production_index, name='production_index'),
+    path('all_jobs/', view_all_jobs, name='all jobs'),
+    path('job/new/form_submitted/', form_submitted, name='form submitted'),
+    path('job/active/', view_active_jobs, name='active jobs'),
+    path('job/needs_laser/', do_laser_work, name='laser jobs'),
+    path('job/needs_assembly/', do_assembly, name='assembly jobs'),
+    path('job/needs_packaging/', do_packaging, name='packaging jobs'),
+    path('job/needs_shrinking/', do_shrinking, name='shrinking jobs'),
+    path('jobs/my_jobs/', my_jobs, name='my jobs'),-->

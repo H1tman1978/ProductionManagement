@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block title %}PMQnet - My Jobs{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>My Laser Jobs</h2>
+    {% render_table laser_jobs %}
+    <h2>My Assembly Jobs</h2>
+    {% render_table assembly_jobs %}
+    <h2>My Packaging Jobs</h2>
+    {% render_table packaging_jobs %}
+    <h2>My Shrinking Jobs</h2>
+    {% render_table shrinking_jobs %}
+
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
